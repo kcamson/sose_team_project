@@ -1,16 +1,18 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from db.base import *
+import hashlib
 
 from models.poll import Poll
 from models.player import User
 import os
+
 os.system("clear")
 
 session = sessionmaker()
 
 # setup db in folder 'db' and file name of farkle.sqlite
-engine = create_engine(f"sqlite:///db/farkle.sqlite")
+engine = create_engine(f"sqlite:///db/poll.sqlite")
 session.configure(bind=engine)
 
 # create all the tables
@@ -25,29 +27,23 @@ print("############## Poll time! ######################")
 print("#################################################")
 print("\n\n")
 
-number_of_players = int(input("Do you want to create a new poll? "))
-player_list = []
+initialQuestion = input("Do you want to create a new poll? (response: y/n): ")
 
-for i in range(number_of_players):
-    name = input("What is the players name? ")
-    u = User(first_name=name)
-    player_list.append(u)
+while True:
+    a = input("Do you want to create a new poll? (response: y/n): ")
+    if a == "y":
+        print("Taking you to the poll maker...")
+        break
+    if a == "n":
+        print("Getting all the polls for you")
+        break
+    else:
+        print("Try again")
 
-print(f"adding {len(player_list)} players to a game...")
-game = Poll(players=player_list)
+userId = str(hashlib.md5())[-7:-1]
+user = User('123')
+poll = Poll(user)
 
-ses.add(game)
+ses.add(poll)
 ses.commit()
 
-
-
-print("Game On!")
-
-game_active = True
-
-while game_active:
-
-    print(f"Player Up! {game.current_player().first_name}'s turn.")
-
-
-    game_active = False

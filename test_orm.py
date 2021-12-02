@@ -10,7 +10,7 @@ os.system('clear')
 session = sessionmaker()
 
 # setup db in folder 'db' and file name of farkle.sqlite
-engine = create_engine(f"sqlite:///db/farkle.sqlite")
+engine = create_engine(f"sqlite:///db/poll.sqlite")
 session.configure(bind=engine)
 
 # create all the tables
