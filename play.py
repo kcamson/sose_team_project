@@ -1,10 +1,10 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from db.base import *
+from models import player
 import hashlib
 
 from models.poll import Poll
-from models.player import User
 import os
 
 os.system("clear")
@@ -29,21 +29,40 @@ print("\n\n")
 
 initialQuestion = input("Do you want to create a new poll? (response: y/n): ")
 
-while True:
-    a = input("Do you want to create a new poll? (response: y/n): ")
-    if a == "y":
-        print("Taking you to the poll maker...")
-        break
-    if a == "n":
-        print("Getting all the polls for you")
-        break
-    else:
-        print("Try again")
+a = input("Do you want to create a new poll? (response: y/n): ")
+if a == "y":
+    pollId = str(hashlib.md5())[-7:-1]
+    questionText = input("What is your question? ")
+    isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
-userId = str(hashlib.md5())[-7:-1]
-user = User('123')
-poll = Poll(user)
+    if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
+        answerText = "Yes"
+        answerId = str(hashlib.md5())[-7:-1]
+        answer = player.Answer(answerText=answerText, answerId=answerId, pollId=pollId)
+        ses.add(answer)
+
+        answerText = "No"
+        answerId = str(hashlib.md5())[-7:-1]
+        answer = player.Answer(answerText=answerText, answerId=answerId, pollId=pollId)
+        ses.add(answer)
+
+    elif isYesOrNo == "n":
+        howManyAnswers = int(input("How many answers? "))
+
+        for i in range(howManyAnswers):
+            answerText = input("Type your answer: ")
+
+            if answerText:
+                answerId = str(hashlib.md5())[-7:-1]
+                answer = player.Answer(answerText=answerText, answerId=answerId, pollId=pollId)
+                ses.add(answer)
+            else:  # text is empty
+                pass
+
+if a == "n":
+    print("Getting all the polls for you")
+
+poll = Poll()
 
 ses.add(poll)
 ses.commit()
-

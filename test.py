@@ -1,17 +1,12 @@
 # import everything from the file domain.py
 import models.poll
-from models.player import User
 from models.poll import Poll
 
 import os
 os.system("clear")
 
-
-# this is how you create objects from a class file
-user = User("jonathan")
-
 # create a game and pass in a list of players
-poll = Poll(user)
+poll = Poll()
 
 print(poll.pollId)
 
