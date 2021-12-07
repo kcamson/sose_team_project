@@ -27,8 +27,6 @@ print("############## Poll time! ######################")
 print("#################################################")
 print("\n\n")
 
-initialQuestion = input("Do you want to create a new poll? (response: y/n): ")
-
 a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
     pollId = str(hashlib.md5())[-7:-1]
@@ -61,8 +59,22 @@ if a == "y":
 
 if a == "n":
     print("Getting all the polls for you")
+    #  query db for polls
+    all_polls = ses.query(Poll).all()
+    for poll in all_polls:
+        print(f"-- [{poll.id}] {poll.questionText}")
 
-poll = Poll()
+    selection = int(input("Which poll (by id) do you want to view? "))
 
-ses.add(poll)
-ses.commit()
+    poll = ses.query(Poll).get(selection)
+
+    print(f"Cool. You have info on poll with code of {poll.id}")
+    print("here are the questions")
+
+    for question in poll.answers:
+        print(f"-- {poll.questionText}")
+
+# poll = Poll()
+#
+# ses.add(poll)
+# ses.commit()

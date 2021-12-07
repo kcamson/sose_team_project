@@ -10,8 +10,7 @@ class GameInitiationError(Exception):
 
 class Poll(Base):
 
-    __tablename__ = 'games'
+    __tablename__ = 'polls'
     id = Column(Integer, primary_key=True)
-    round = Column(Integer, default=1)
-    code = Column(String)
+    questionText = Column(String, primary_key=False)
 
