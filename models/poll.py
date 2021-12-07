@@ -12,5 +12,6 @@ class Poll(Base):
 
     __tablename__ = 'polls'
     id = Column(Integer, primary_key=True)
-    questionText = Column(String, primary_key=False)
+    questionText = Column(String)
+
 

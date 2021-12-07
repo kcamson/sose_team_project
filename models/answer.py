@@ -8,12 +8,10 @@ from models.poll import Poll
 class Answer(Base):
     __tablename__ = 'answers'
     id = Column(Integer, primary_key=True)
-    answerText = Column(String, primary_key=False)
-    # level = Column(Integer, default=0)
+    answerText = Column(String)
     poll_id = Column(Integer, ForeignKey('polls.id'))
     poll = relationship(Poll, backref=backref('answers', uselist=True, cascade='delete,all'))
 
-    def __init__(self, answerText, pollId):
+    def __init__(self, answerText):
         self.answerText = answerText,
-        self.poll_id = pollId
 

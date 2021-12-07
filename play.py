@@ -30,7 +30,8 @@ print("\n\n")
 
 a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
-    pollId = str(hashlib.md5())[-7:-1]
+    poll = Poll()
+    ses.add(poll)
     questionText = input("What is your question? ")
 
     # Adds question mark to question if it is not there
@@ -38,19 +39,15 @@ if a == "y":
         questionText += '?'
         print("Please make sure you have a question mark(?) at the end of your question next time.")
 
-    print(questionText)
-    
     isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
         answerText = "Yes"
-        answerId = str(hashlib.md5())[-7:-1]
-        answer = Answer(answerText=answerText, pollId=pollId)
+        answer = Answer(answerText)
         ses.add(answer)
 
         answerText = "No"
-        answerId = str(hashlib.md5())[-7:-1]
-        answer = Answer(answerText=answerText, pollId=pollId)
+        answer = Answer(answerText)
         ses.add(answer)
 
         ses.commit()
@@ -62,7 +59,7 @@ if a == "y":
             answerText = input("Type your answer: ")
 
             if answerText:
-                answer = Answer(answerText=answerText, pollId=pollId)
+                answer = Answer(answerText=answerText)
                 ses.add(answer)
             else:  # text is empty
                 pass
