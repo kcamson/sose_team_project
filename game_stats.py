@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from db.base import *
 
 from models.poll import Poll
-from models.player import User
+from models.answer import User
 from models.dice import StandardDie
 from models.roll import Roll
 import os

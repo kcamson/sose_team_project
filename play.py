@@ -1,16 +1,19 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from db.base import *
+from models import answer
+import hashlib
 
 from models.poll import Poll
-from models.player import User
+from models.answer import Answer
 import os
+
 os.system("clear")
 
 session = sessionmaker()
 
 # setup db in folder 'db' and file name of farkle.sqlite
-engine = create_engine(f"sqlite:///db/farkle.sqlite")
+engine = create_engine(f"sqlite:///db/poll.sqlite")
 session.configure(bind=engine)
 
 # create all the tables
@@ -25,29 +28,58 @@ print("############## Poll time! ######################")
 print("#################################################")
 print("\n\n")
 
-number_of_players = int(input("Do you want to create a new poll? "))
-player_list = []
+a = input("Do you want to create a new poll? (response: y/n): ")
+if a == "y":
+    pollId = str(hashlib.md5())[-7:-1]
+    questionText = input("What is your question? ")
+    isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
-for i in range(number_of_players):
-    name = input("What is the players name? ")
-    u = User(first_name=name)
-    player_list.append(u)
+    if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
+        answerText = "Yes"
+        answerId = str(hashlib.md5())[-7:-1]
+        answer = Answer(answerText=answerText, pollId=pollId)
+        ses.add(answer)
 
-print(f"adding {len(player_list)} players to a game...")
-game = Poll(players=player_list)
+        answerText = "No"
+        answerId = str(hashlib.md5())[-7:-1]
+        answer = Answer(answerText=answerText, pollId=pollId)
+        ses.add(answer)
 
-ses.add(game)
-ses.commit()
+        ses.commit()
 
+    elif isYesOrNo == "n":
+        howManyAnswers = int(input("How many answers? "))
 
+        for i in range(howManyAnswers):
+            answerText = input("Type your answer: ")
 
-print("Game On!")
+            if answerText:
+                answer = Answer(answerText=answerText, pollId=pollId)
+                ses.add(answer)
+            else:  # text is empty
+                pass
 
-game_active = True
+if a == "n":
+    print("Getting all the polls for you")
+    #  query db for polls
+    all_polls = ses.query(Poll).all()
+    for poll in all_polls:
+        print(f"-- [{poll.id}] {poll.questionText}")
 
-while game_active:
+    selection = int(input("Which poll (by id) do you want to view? "))
 
-    print(f"Player Up! {game.current_player().first_name}'s turn.")
+    answers = []
 
+    query = ses.query(Answer).filter('poll_id' == selection)
 
-    game_active = False
+    print(f"Cool. You have info on poll with code of {poll.id}")
+    print("here are the questions")
+
+    for answer in query:
+        answers.append(answer)
+        print(f"-- {answer.answerText}")
+
+# poll = Poll()
+#
+# ses.add(poll)
+# ses.commit()
