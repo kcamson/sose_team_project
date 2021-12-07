@@ -2,7 +2,7 @@ import pytest
 import hashlib
 
 from models.poll import Poll
-from models.player import User
+from models.answer import User
 
 
 class TestGame:

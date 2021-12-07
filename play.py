@@ -1,10 +1,11 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from db.base import *
-from models import player
+from models import answer
 import hashlib
 
 from models.poll import Poll
+from models.answer import Answer
 import os
 
 os.system("clear")
@@ -36,13 +37,15 @@ if a == "y":
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
         answerText = "Yes"
         answerId = str(hashlib.md5())[-7:-1]
-        answer = player.Answer(answerText=answerText, answerId=answerId, pollId=pollId)
+        answer = Answer(answerText=answerText, pollId=pollId)
         ses.add(answer)
 
         answerText = "No"
         answerId = str(hashlib.md5())[-7:-1]
-        answer = player.Answer(answerText=answerText, answerId=answerId, pollId=pollId)
+        answer = Answer(answerText=answerText, pollId=pollId)
         ses.add(answer)
+
+        ses.commit()
 
     elif isYesOrNo == "n":
         howManyAnswers = int(input("How many answers? "))
@@ -51,8 +54,7 @@ if a == "y":
             answerText = input("Type your answer: ")
 
             if answerText:
-                answerId = str(hashlib.md5())[-7:-1]
-                answer = player.Answer(answerText=answerText, answerId=answerId, pollId=pollId)
+                answer = Answer(answerText=answerText, pollId=pollId)
                 ses.add(answer)
             else:  # text is empty
                 pass
@@ -66,13 +68,16 @@ if a == "n":
 
     selection = int(input("Which poll (by id) do you want to view? "))
 
-    poll = ses.query(Poll).get(selection)
+    answers = []
+
+    query = ses.query(Answer).filter('poll_id' == selection)
 
     print(f"Cool. You have info on poll with code of {poll.id}")
     print("here are the questions")
 
-    for question in poll.answers:
-        print(f"-- {poll.questionText}")
+    for answer in query:
+        answers.append(answer)
+        print(f"-- {answer.answerText}")
 
 # poll = Poll()
 #

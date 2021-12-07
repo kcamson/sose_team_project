@@ -4,7 +4,7 @@ from db.base import *
 import os
 
 from models.poll import Poll
-from models.player import Answer
+from models.answer import Answer
 os.system('clear')
 
 session = sessionmaker()
