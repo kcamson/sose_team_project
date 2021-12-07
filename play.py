@@ -38,7 +38,7 @@ if a == "y":
         print("Please make sure you have a question mark(?) at the end of your question next time.")
 
     print(questionText)
-    
+
     isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
