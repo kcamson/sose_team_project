@@ -32,6 +32,14 @@ a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
     pollId = str(hashlib.md5())[-7:-1]
     questionText = input("What is your question? ")
+
+    # Adds question mark to question if it is not there
+    if questionText.split()[-1] != '?':
+        questionText += '?'
+        print("Please make sure you have a question mark(?) at the end of your question next time.")
+
+    print(questionText)
+    
     isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
