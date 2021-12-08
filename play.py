@@ -28,8 +28,9 @@ print("\n\n")
 
 a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
-
-    questionText = input("What is your question? ")
+    questionText = ""
+    while(questionText == ""):
+        questionText = str(input("What is your question? "))
 
     # Adds question mark to question if it is not there
     if questionText[-1] != '?':
