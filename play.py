@@ -49,8 +49,9 @@ if a == "y":
         answerText = "No"
         answer = Answer(answerText)
         ses.add(answer)
+        print(answer)
 
-        ses.commit()
+        # ses.commit()
 
     elif isYesOrNo == "n":
         howManyAnswers = int(input("How many answers? "))
