@@ -86,10 +86,12 @@ if a == "n":
     print(poll.question_text)
     print("Here are the answers: (select an id to answer!)")
 
+    answers = []
+
     for answer in poll.answers:
+        answers.append(answer)
         print(f"-- [{answer.id}] {answer.answer_text}")
 
     selection = int(input("What do you choose? "))
-
-
-
+    print(f"You chose {answers[selection-1].answer_text}.")
+    print("Here are the overall results:")
