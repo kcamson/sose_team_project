@@ -26,19 +26,18 @@ print("#################################################")
 print("\n\n")
 
 
-
 a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
 
-
-
-
-    question_text = input("What is your question? ")
+    questionText = input("What is your question? ")
 
     # Adds question mark to question if it is not there
-    if question_text.split()[-1] != '?':
-        question_text += '?'
+    if questionText[-1] != '?':
+        questionText += '?'
+
         print("Please make sure you have a question mark(?) at the end of your question next time.")
+    else:
+        pass
 
     isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
@@ -64,7 +63,8 @@ if a == "y":
 
         ses.add(poll)
         ses.commit()
-
+    else:
+        print("Invalid response.")
 
 
 if a == "n":
