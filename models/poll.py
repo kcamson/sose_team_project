@@ -2,6 +2,8 @@ from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship, backref
 from db.base import *
 import hashlib
+# player is an argument you can use with Game() >> Game(players=...)
+
 
 class GameInitiationError(Exception):
     def __init__(self, message):
@@ -12,13 +14,16 @@ class Poll(Base):
 
     __tablename__ = 'polls'
     id = Column(Integer, primary_key=True)
-    questionText = Column(String)
+    question_text = Column(String)
 
+    # the input is stored in an instance variable (called an attribute)
     def __init__(self, answers):
+        if len(answers) == 1:
+            raise GameInitiationError("Games must include 2 or more players.")
+
         self.answers = answers
+        self.question_text = "QTEXT"
 
     def answers(self):
         return self._answers
-
-
 

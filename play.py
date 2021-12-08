@@ -1,13 +1,10 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from db.base import *
-from models import answer
-import hashlib
 
 from models.poll import Poll
 from models.answer import Answer
 import os
-
 os.system("clear")
 
 session = sessionmaker()
@@ -24,14 +21,18 @@ Base.metadata.create_all(engine)
 ses = session()
 
 print("#################################################")
-print("############## Poll time! ######################")
+print("############## Poll Time ######################")
 print("#################################################")
 print("\n\n")
 
+
+
 a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
-    poll = Poll([])
-    ses.add(poll)
+
+
+
+
     questionText = input("What is your question? ")
 
     # Adds question mark to question if it is not there
@@ -54,16 +55,22 @@ if a == "y":
         # ses.commit()
 
     elif isYesOrNo == "n":
-        howManyAnswers = int(input("How many answers? "))
 
-        for i in range(howManyAnswers):
-            answerText = input("Type your answer: ")
+        number_of_answers = int(input("How many answers? "))
+        answer_list = []
 
-            if answerText:
-                answer = Answer(answerText=answerText)
-                ses.add(answer)
-            else:  # text is empty
-                pass
+        for i in range(number_of_answers):
+            answer_text = input("Type your answer ")
+            a = Answer(answer_text=answer_text)
+            answer_list.append(a)
+
+        print(f"adding {len(answer_list)} players to a game...")
+        poll = Poll(answer_list)
+
+        ses.add(poll)
+        ses.commit()
+
+
 
 if a == "n":
     print("Getting all the polls for you")
@@ -85,7 +92,6 @@ if a == "n":
         answers.append(answer)
         print(f"-- {answer.answerText}")
 
-# poll = Poll()
-#
-# ses.add(poll)
-# ses.commit()
+
+
+
