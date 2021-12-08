@@ -107,18 +107,14 @@ if a == "n":
         answers.append(answer)
         print(f"-- [{answer.id}] {answer.answer_text}")
 
-<<<<<<< HEAD
-    selection = int(input("What do you choose? "))
-    print(f"You chose {answers[selection-1].answer_text}.")
-    print("Here are the overall results:")
-=======
     selection = None
     while(selection is None or selection > poll.answers[-1].id or selection < poll.answers[0].id):
         try:
             selection = int(input("What do you choose? "))
         except ValueError:
             print("Please enter an integer")
+    print(f"You chose {answers[selection - 1].answer_text}.")
+    print("Here are the overall results:")
 
 
 
->>>>>>> f588924b11fca38a663905f0fb7f40c113d7b05a
