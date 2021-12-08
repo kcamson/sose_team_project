@@ -5,6 +5,7 @@ from db.base import *
 from models.poll import Poll
 from models.answer import Answer
 import os
+import game_stats
 os.system("clear")
 
 session = sessionmaker()
@@ -99,6 +100,7 @@ if a == "n":
     poll = ses.query(Poll).get(poll_id)
 
     print(poll.question_text)
+
     print("Here are the answers: (select an id to answer!)")
 
     answers = []
@@ -120,6 +122,9 @@ if a == "n":
     for answer in poll.answers:
         answers.append(answer)
         print(f"xx% -- {answer.answer_text}")
+
+
+    game_stats.results(poll.id)
 
 
 
