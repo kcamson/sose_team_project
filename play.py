@@ -90,7 +90,7 @@ if a == "n":
         print(f"-- [{poll.id}] {poll.question_text}")
 
     poll_id = None
-    while(poll_id is None):
+    while(poll_id is None or poll_id > all_polls[-1].id or poll_id < all_polls[0].id):
         try:
             poll_id = int(input("Which poll (by id) do you want to view? "))
         except ValueError:
