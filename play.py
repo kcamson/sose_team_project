@@ -34,6 +34,7 @@ if a == "y":
     # Adds question mark to question if it is not there
     if questionText[-1] != '?':
         questionText += '?'
+
         print("Please make sure you have a question mark(?) at the end of your question next time.")
     else:
         pass
@@ -41,16 +42,11 @@ if a == "y":
     isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
-        answerText = "Yes"
-        answer = Answer(answerText)
-        ses.add(answer)
+        answer_list = [Answer(answer_text="Yes"),Answer(answer_text="No")]
+        poll = Poll(answer_list, question_text)
 
-        answerText = "No"
-        answer = Answer(answerText)
-        ses.add(answer)
-        print(answer)
-
-        # ses.commit()
+        ses.add(poll)
+        ses.commit()
 
     elif isYesOrNo == "n":
 
@@ -76,7 +72,7 @@ if a == "n":
     #  query db for polls
     all_polls = ses.query(Poll).all()
     for poll in all_polls:
-        print(f"-- [{poll.id}] {poll.questionText}")
+        print(f"-- [{poll.id}] {poll.question_textext}")
 
     selection = int(input("Which poll (by id) do you want to view? "))
 
