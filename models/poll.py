@@ -14,11 +14,11 @@ class Poll(Base):
     id = Column(Integer, primary_key=True)
     questionText = Column(String)
 
-    def __init__(self, players):
-        self.players = players
+    def __init__(self, answers):
+        self.answers = answers
 
-    def players(self):
-        return self._players
+    def answers(self):
+        return self._answers
 
 
 

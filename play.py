@@ -30,7 +30,7 @@ print("\n\n")
 
 a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
-    poll = Poll()
+    poll = Poll([])
     ses.add(poll)
     questionText = input("What is your question? ")
 
