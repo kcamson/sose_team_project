@@ -89,7 +89,12 @@ if a == "n":
     for poll in all_polls:
         print(f"-- [{poll.id}] {poll.question_text}")
 
-    poll_id = int(input("Which poll (by id) do you want to view? "))
+    poll_id = None
+    while(poll_id is None):
+        try:
+            poll_id = int(input("Which poll (by id) do you want to view? "))
+        except ValueError:
+            print("Please enter an integer")
 
     poll = ses.query(Poll).get(poll_id)
 
@@ -99,7 +104,12 @@ if a == "n":
     for answer in poll.answers:
         print(f"-- [{answer.id}] {answer.answer_text}")
 
-    selection = int(input("What do you choose? "))
+    selection = None
+    while(selection is None):
+        try:
+            selection = int(input("What do you choose? "))
+        except ValueError:
+            print("Please enter an integer")
 
 
 
