@@ -25,8 +25,10 @@ print("############## Poll Time ######################")
 print("#################################################")
 print("\n\n")
 
+a = ""
+while(a != "y" and a != "n"):
+    a = input("Do you want to create a new poll? (response: y/n): ")
 
-a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
     questionText = ""
     while(questionText == ""):
@@ -39,8 +41,9 @@ if a == "y":
         print("Please make sure you have a question mark(?) at the end of your question next time.")
     else:
         pass
-
-    isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
+    isYesOrNo = ""
+    while(isYesOrNo != "y" and isYesOrNo != "n"):
+        isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
         answer_list = [Answer(answer_text="Yes"),Answer(answer_text="No")]
@@ -50,12 +53,19 @@ if a == "y":
         ses.commit()
 
     elif isYesOrNo == "n":
+        number_of_answers = None
+        while(number_of_answers is None):
+            try:
+                number_of_answers = int(input("How many answers? "))
+            except ValueError:
+                print("Please enter an integer")
 
-        number_of_answers = int(input("How many answers? "))
         answer_list = []
 
         for i in range(number_of_answers):
-            answer_text = input("Type your answer ")
+            answer_text = ""
+            while(answer_text == ""):
+                answer_text = input(f"Type your answer #{i+1} ")
             a = Answer(answer_text=answer_text)
             answer_list.append(a)
 
@@ -79,7 +89,12 @@ if a == "n":
     for poll in all_polls:
         print(f"-- [{poll.id}] {poll.question_text}")
 
-    poll_id = int(input("Which poll (by id) do you want to view? "))
+    poll_id = None
+    while(poll_id is None or poll_id > all_polls[-1].id or poll_id < all_polls[0].id):
+        try:
+            poll_id = int(input("Which poll (by id) do you want to view? "))
+        except ValueError:
+            print("Please enter an integer")
 
     poll = ses.query(Poll).get(poll_id)
 
@@ -92,6 +107,18 @@ if a == "n":
         answers.append(answer)
         print(f"-- [{answer.id}] {answer.answer_text}")
 
+<<<<<<< HEAD
     selection = int(input("What do you choose? "))
     print(f"You chose {answers[selection-1].answer_text}.")
     print("Here are the overall results:")
+=======
+    selection = None
+    while(selection is None or selection > poll.answers[-1].id or selection < poll.answers[0].id):
+        try:
+            selection = int(input("What do you choose? "))
+        except ValueError:
+            print("Please enter an integer")
+
+
+
+>>>>>>> f588924b11fca38a663905f0fb7f40c113d7b05a
