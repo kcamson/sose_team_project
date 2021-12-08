@@ -72,22 +72,23 @@ if a == "n":
     print("Getting all the polls for you")
     #  query db for polls
     all_polls = ses.query(Poll).all()
+
+    print("Here are the polls...")
+
     for poll in all_polls:
         print(f"-- [{poll.id}] {poll.question_text}")
 
-    selection = int(input("Which poll (by id) do you want to view? "))
+    poll_id = int(input("Which poll (by id) do you want to view? "))
 
-    answers = []
+    poll = ses.query(Poll).get(poll_id)
 
-    query = ses.query(Answer).filter('poll_id' == selection)
+    print(poll.question_text)
+    print("Here are the answers: (select an id to answer!)")
 
-    print(f"Cool. You have info on poll with code of {poll.id}")
-    print("here are the questions")
+    for answer in poll.answers:
+        print(f"-- [{answer.id}] {answer.answer_text}")
 
-    for answer in query:
-        answers.append(answer)
-        print(f"-- {answer.answerText}")
-
+    selection = int(input("What do you choose? "))
 
 
 
