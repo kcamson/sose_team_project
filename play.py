@@ -25,8 +25,10 @@ print("############## Poll Time ######################")
 print("#################################################")
 print("\n\n")
 
+a = ""
+while(a != "y" and a != "n"):
+    a = input("Do you want to create a new poll? (response: y/n): ")
 
-a = input("Do you want to create a new poll? (response: y/n): ")
 if a == "y":
     questionText = ""
     while(questionText == ""):
@@ -39,8 +41,9 @@ if a == "y":
         print("Please make sure you have a question mark(?) at the end of your question next time.")
     else:
         pass
-
-    isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
+    isYesOrNo = ""
+    while(isYesOrNo != "y" and isYesOrNo != "n"):
+        isYesOrNo = input("Is this a Yes or No question? (responses: y/n) ")
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
         answer_list = [Answer(answer_text="Yes"),Answer(answer_text="No")]
@@ -50,12 +53,19 @@ if a == "y":
         ses.commit()
 
     elif isYesOrNo == "n":
+        number_of_answers = None
+        while(number_of_answers is None):
+            try:
+                number_of_answers = int(input("How many answers? "))
+            except ValueError:
+                print("Please enter an integer")
 
-        number_of_answers = int(input("How many answers? "))
         answer_list = []
 
         for i in range(number_of_answers):
-            answer_text = input("Type your answer ")
+            answer_text = ""
+            while(answer_text == ""):
+                answer_text = input(f"Type your answer #{i+1} ")
             a = Answer(answer_text=answer_text)
             answer_list.append(a)
 
