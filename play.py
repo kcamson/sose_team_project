@@ -58,7 +58,7 @@ if a == "y":
             a = Answer(answer_text=answer_text)
             answer_list.append(a)
 
-        print(f"adding {len(answer_list)} players to a game...")
+        print(f"adding {len(answer_list)} answers to a poll...")
         poll = Poll(answer_list)
 
         ses.add(poll)
