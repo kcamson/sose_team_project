@@ -43,9 +43,9 @@ if a == "y":
 
     if isYesOrNo == "y":  # if it's yes or no, add those two answers to ses
         answer_list = [Answer(answer_text="Yes"),Answer(answer_text="No")]
-        poll = Poll(answer_list, question_text)
-
+        poll = Poll(answer_list)
         ses.add(poll)
+        poll.question_text = str(questionText)
         ses.commit()
 
     elif isYesOrNo == "n":
@@ -62,6 +62,7 @@ if a == "y":
         poll = Poll(answer_list)
 
         ses.add(poll)
+        poll.question_text = str(questionText)
         ses.commit()
     else:
         print("Invalid response.")
@@ -72,7 +73,7 @@ if a == "n":
     #  query db for polls
     all_polls = ses.query(Poll).all()
     for poll in all_polls:
-        print(f"-- [{poll.id}] {poll.question_textext}")
+        print(f"-- [{poll.id}] {poll.question_text}")
 
     selection = int(input("Which poll (by id) do you want to view? "))
 

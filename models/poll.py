@@ -17,16 +17,13 @@ class Poll(Base):
     question_text = Column(String)
 
     # the input is stored in an instance variable (called an attribute)
-    def __init__(self, answers, question_text):
+    def __init__(self, answers):
         if len(answers) == 1:
-            raise GameInitiationError("Games must include 2 or more players.")
+            raise GameInitiationError("Polls must include 2 or more answers.")
 
         self.answers = answers
-        self.question_text = question_text
 
     def answers(self):
         return self._answers
 
-    def question_text(self):
-        return self._question_text
 
