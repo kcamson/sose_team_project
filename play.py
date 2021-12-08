@@ -105,7 +105,7 @@ if a == "n":
         print(f"-- [{answer.id}] {answer.answer_text}")
 
     selection = None
-    while(selection is None):
+    while(selection is None or selection > poll.answers[-1].id or selection < poll.answers[0].id):
         try:
             selection = int(input("What do you choose? "))
         except ValueError:
