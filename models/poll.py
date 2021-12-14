@@ -1,8 +1,5 @@
-from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, String, Integer
 from db.base import *
-import hashlib
-# player is an argument you can use with Game() >> Game(players=...)
 
 
 class GameInitiationError(Exception):
@@ -25,5 +22,3 @@ class Poll(Base):
 
     def answers(self):
         return self._answers
-
-
