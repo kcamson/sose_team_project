@@ -115,7 +115,13 @@ if a == "n":
             selection = int(input("What do you choose? "))
         except ValueError:
             print("Please enter an integer")
-    print(f"You chose {answers[selection - 1].answer_text}.")
+
+    answer_to_update = ses.query(Answer).get(selection)
+    answer_to_update.response_count += 1
+    ses.add(answer_to_update)
+    ses.commit()
+
+    print(f"You chose {ses.query(Answer).get(selection).answer_text}.")
 
     print("Here are the overall results:")
 
