@@ -1,13 +1,7 @@
-## This is our project polling CLI.
+## This is our Poll CLI.
 
-a poll consists of 2 or more answers. Each user ...
+Any user can either create a poll
+or answer one that has already been created.
 
-1. ...
-2. ...
-
-
-## CLI Considerations
-
-   - cli should prompt for a new poll or to create a poll (stored in a db)
-   - each poll should have a set number of questions with answers and responses stored
- 
+A poll consists of 2 or more answers. Once answered,
+we will show you the response percentage breakdown!

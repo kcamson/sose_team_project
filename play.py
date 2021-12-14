@@ -59,7 +59,7 @@ if a == "y":
             try:
                 number_of_answers = int(input("How many answers? "))
                 if number_of_answers < 2:
-                    print('Enter at least more than 1 answer')
+                    print('Enter at least 2 answers')
                     number_of_answers = None
             except ValueError:
                 print("Please enter an integer")
