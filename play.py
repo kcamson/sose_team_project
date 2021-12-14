@@ -125,12 +125,7 @@ if a == "n":
 
     print("Here are the overall results:")
 
-    for answer in poll.answers:
-        answers.append(answer)
-        print(f"xx% -- {answer.answer_text}")
-
-
-    game_stats.results(poll.id)
+    game_stats.results(poll)
 
 
 

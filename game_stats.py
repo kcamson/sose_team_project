@@ -40,18 +40,19 @@ ses = session()
 #     print(f"-- {player.first_name}")
 
 
-def results(poll_id):
-    poll = ses.query(Poll).get(poll_id)
+def results(poll):
     answers = poll.answers
-    total_responses = len(answers)
-    unique_values = set(answers)
-    for i in unique_values:
-        count = 0
-        for k in range(len(answers)):
-            if answers[k] == i:
-                count += 1
-        share = round((count/total_responses) * 100, 2)
-        print(f'{i.answer_text}({share}%)')
+    total_responses = 0
+
+    for a in answers:
+        total_responses += a.response_count
+
+    print(f'Total Responses: {total_responses}')
+    print("[Answer: Count, Percentage]")
+
+    for a in answers:
+        share = round((a.response_count/total_responses) * 100, 2)
+        print(f'{a.answer_text}: {a.response_count}, {share}%')
 
 
 
