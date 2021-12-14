@@ -58,6 +58,9 @@ if a == "y":
         while number_of_answers is None:
             try:
                 number_of_answers = int(input("How many answers? "))
+                if number_of_answers < 2:
+                    print('Need more than 2 answers')
+                    number_of_answers = None
             except ValueError:
                 print("Please enter an integer")
 
